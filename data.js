@@ -69,4 +69,9 @@ window.SITE_DATA = {
       ]
     },
     {"name":"S&P 500","tag":"Large Cap","ready":false,"gain":[],"lose":[]},
-    {"name":"Nas
+    {"name":"Nasdaq","tag":"Tech","ready":false,"gain":[],"lose":[]},
+    {"name":"Russell 2000","tag":"Small-Cap Index","ready":false,"gain":[],"lose":[]},
+    {"name":"Small Caps","tag":"Broad Small-Cap","ready":false,"gain":[],"lose":[]},
+    {"name":"Micro Caps","tag":"Micro-Cap","ready":false,"gain":[],"lose":[]}
+  ]
+};

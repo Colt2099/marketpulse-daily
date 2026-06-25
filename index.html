@@ -33,7 +33,7 @@
   .tile.pending{opacity:.55}
   .tile .name{font-size:12px;color:var(--muted)} .tile .val{font-size:16px;font-weight:700;margin-top:2px}
   .pos{color:var(--up)} .neg{color:var(--down)} .chg{font-size:12px;font-weight:600}
-  .chg.soon{color:var(--muted);font-weight:500;font-style:italic}
+  .chg.soon{color:var(--muted);font-weight:500;font-style:italic;font-size:11px}
   h2.sec{font-size:18px;margin:24px 0 12px;display:flex;align-items:center;gap:8px}
   h2.sec::before{content:"";width:4px;height:18px;background:linear-gradient(var(--accent),var(--accent2));border-radius:3px}
   .cat{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:18px}
@@ -45,7 +45,7 @@
   .col.gain h4{color:var(--up)} .col.lose h4{color:var(--down)}
   .col.lose{border-left:1px solid var(--line)}
   @media(max-width:620px){.col.lose{border-left:none;border-top:1px solid var(--line)}}
-  .row{position:relative;display:flex;justify-content:space-between;align-items:center;padding:8px 16px;border-bottom:1px solid #1b2740;cursor:pointer;transition:background .15s}
+  .row{position:relative;display:flex;justify-content:space-between;align-items:center;padding:8px 16px;border-bottom:1px solid #1b2740;cursor:pointer;transition:background .15s;color:var(--txt)}
   .row:last-child{border-bottom:none} .row:hover{background:#1a2540}
   .tick{font-weight:700;font-size:14px} .co{color:var(--muted);font-size:11px}
   .pct{font-weight:700;font-size:14px}
@@ -91,26 +91,99 @@
 <div class="wrap grid">
   <main>
     <section class="hero">
-      <div class="date" id="date">—</div>
-      <h1 id="headline">—</h1>
-      <p id="summary">—</p>
-      <div class="tiles" id="tiles"></div>
+      <div class="date">Market Close · Wednesday, June 24, 2026</div>
+      <h1>Tech slips into Micron's earnings as Dow and small caps hold up</h1>
+      <p>The S&amp;P 500 and Nasdaq edged lower, weighed by energy, communications and technology, while the Dow and Russell 2000 closed higher. After the bell, Micron delivered a beat-and-raise that lifted chip sentiment.</p>
+      <div class="tiles">
+        <a class="tile" href="idx.html?i=sp500&n=S%26P%20500&v=7%2C358.22&c=-0.10%25">
+          <div class="name">S&amp;P 500</div><div class="val">7,358.22</div><div class="chg neg">▼ -0.10%</div></a>
+        <a class="tile" href="idx.html?i=nasdaq&n=Nasdaq&v=25%2C476.44&c=-0.43%25">
+          <div class="name">Nasdaq</div><div class="val">25,476.44</div><div class="chg neg">▼ -0.43%</div></a>
+        <a class="tile" href="idx.html?i=russell&n=Russell%202000&v=2%2C986.63&c=%2B0.37%25">
+          <div class="name">Russell 2000</div><div class="val">2,986.63</div><div class="chg pos">▲ +0.37%</div></a>
+        <div class="tile pending">
+          <div class="name">Small Caps</div><div class="val">—</div><div class="chg soon">setting up source</div></div>
+        <div class="tile pending">
+          <div class="name">Micro Caps</div><div class="val">—</div><div class="chg soon">setting up source</div></div>
+        <a class="tile" href="idx.html?i=commodities&n=Commodities&v=Gold%20%244%2C027&c=%2B0.45%25">
+          <div class="name">Commodities</div><div class="val">Gold $4,027</div><div class="chg pos">▲ +0.45%</div></a>
+      </div>
     </section>
 
     <h2 class="sec" id="cats">Today's Movers</h2>
-    <div id="categories"></div>
+
+    <div class="cat">
+      <div class="cat-head"><span>Biggest Movers — US Market</span><span class="tag">All listed stocks</span></div>
+      <div class="cols">
+        <div class="col gain"><h4>▲ Top Gainers</h4>
+          <a class="row" href="asset.html?t=MEI&n=Methode%20Electronics&c=%2B29.1%25"><span><span class="tick">MEI</span><div class="co">Methode Electronics</div></span><span class="pct pos">+29.1%</span><span class="hint">📰 Learn more →</span></a>
+          <a class="row" href="asset.html?t=BB&n=BlackBerry&c=%2B22.1%25"><span><span class="tick">BB</span><div class="co">BlackBerry</div></span><span class="pct pos">+22.1%</span><span class="hint">📰 Learn more →</span></a>
+          <a class="row" href="asset.html?t=AYI&n=Acuity%20Brands&c=%2B21.1%25"><span><span class="tick">AYI</span><div class="co">Acuity Brands</div></span><span class="pct pos">+21.1%</span><span class="hint">📰 Learn more →</span></a>
+          <a class="row" href="asset.html?t=KYMR&n=Kymera%20Therapeutics&c=%2B20.5%25"><span><span class="tick">KYMR</span><div class="co">Kymera Therapeutics</div></span><span class="pct pos">+20.5%</span><span class="hint">📰 Learn more →</span></a>
+          <a class="row" href="asset.html?t=MLKN&n=MillerKnoll&c=%2B20.5%25"><span><span class="tick">MLKN</span><div class="co">MillerKnoll</div></span><span class="pct pos">+20.5%</span><span class="hint">📰 Learn more →</span></a>
+          <a class="row" href="asset.html?t=TECH&n=Bio-Techne&c=%2B19.4%25"><span><span class="tick">TECH</span><div class="co">Bio-Techne</div></span><span class="pct pos">+19.4%</span><span class="hint">📰 Learn more →</span></a>
+        </div>
+        <div class="col lose"><h4>▼ Top Losers</h4>
+          <a class="row" href="asset.html?t=SPRY&n=ARS%20Pharmaceuticals&c=-26.9%25"><span><span class="tick">SPRY</span><div class="co">ARS Pharmaceuticals</div></span><span class="pct neg">-26.9%</span><span class="hint">📰 Learn more →</span></a>
+          <a class="row" href="asset.html?t=ICCM&n=IceCure%20Medical&c=-24.2%25"><span><span class="tick">ICCM</span><div class="co">IceCure Medical</div></span><span class="pct neg">-24.2%</span><span class="hint">📰 Learn more →</span></a>
+          <a class="row" href="asset.html?t=TCOM&n=Trip.com%20Group&c=-16.0%25"><span><span class="tick">TCOM</span><div class="co">Trip.com Group</div></span><span class="pct neg">-16.0%</span><span class="hint">📰 Learn more →</span></a>
+          <a class="row" href="asset.html?t=ALOY&n=REalloys&c=-14.7%25"><span><span class="tick">ALOY</span><div class="co">REalloys</div></span><span class="pct neg">-14.7%</span><span class="hint">📰 Learn more →</span></a>
+          <a class="row" href="asset.html?t=CTRN&n=Citi%20Trends&c=-13.6%25"><span><span class="tick">CTRN</span><div class="co">Citi Trends</div></span><span class="pct neg">-13.6%</span><span class="hint">📰 Learn more →</span></a>
+          <a class="row" href="asset.html?t=RGC&n=Regencell%20Bioscience&c=-13.5%25"><span><span class="tick">RGC</span><div class="co">Regencell Bioscience</div></span><span class="pct neg">-13.5%</span><span class="hint">📰 Learn more →</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="cat">
+      <div class="cat-head"><span>Commodities — Metals</span><span class="tag">CME · COMEX</span></div>
+      <div class="cols">
+        <div class="col gain"><h4>▲ Gainers</h4>
+          <a class="row" href="asset.html?t=GC&n=Gold&c=%2B0.45%25"><span><span class="tick">GC</span><div class="co">Gold</div></span><span class="pct pos">+0.45%</span><span class="hint">📰 Learn more →</span></a>
+        </div>
+        <div class="col lose"><h4>▼ Losers</h4>
+          <a class="row" href="asset.html?t=SI&n=Silver&c=-0.27%25"><span><span class="tick">SI</span><div class="co">Silver</div></span><span class="pct neg">-0.27%</span><span class="hint">📰 Learn more →</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="cat"><div class="cat-head"><span>S&amp;P 500</span><span class="tag">Large Cap</span></div><div class="pendingbox">Per-category data source being configured — coming soon.</div></div>
+    <div class="cat"><div class="cat-head"><span>Nasdaq</span><span class="tag">Tech</span></div><div class="pendingbox">Per-category data source being configured — coming soon.</div></div>
+    <div class="cat"><div class="cat-head"><span>Russell 2000</span><span class="tag">Small-Cap Index</span></div><div class="pendingbox">Per-category data source being configured — coming soon.</div></div>
+    <div class="cat"><div class="cat-head"><span>Small Caps</span><span class="tag">Broad Small-Cap</span></div><div class="pendingbox">Per-category data source being configured — coming soon.</div></div>
+    <div class="cat"><div class="cat-head"><span>Micro Caps</span><span class="tag">Micro-Cap</span></div><div class="pendingbox">Per-category data source being configured — coming soon.</div></div>
 
     <h2 class="sec" id="macro">US Macro Today</h2>
-    <div class="macro" id="macroRow"></div>
+    <div class="macro">
+      <div class="mchip"><div class="k">CPI (YoY)</div><div class="v neg">4.2%</div></div>
+      <div class="mchip"><div class="k">Fed Funds Rate</div><div class="v">3.63%</div></div>
+      <div class="mchip"><div class="k">10Y Treasury</div><div class="v">4.50%</div></div>
+      <div class="mchip"><div class="k">Unemployment</div><div class="v">4.3%</div></div>
+    </div>
 
     <h2 class="sec" id="sentiment">Market Sentiment — Fear &amp; Greed</h2>
-    <div class="panel"><div class="fg" id="fg"></div></div>
+    <div class="panel">
+      <div class="fg">
+        <div style="text-align:center"><div class="num neg">28</div><div class="lab neg">Fear</div></div>
+        <div class="meter">
+          <div class="bar"><div class="ptr" style="left:28%"></div></div>
+          <div class="scale"><span>Extreme Fear</span><span>Fear</span><span>Neutral</span><span>Greed</span><span>Extreme Greed</span></div>
+          <p style="font-size:13px;color:var(--muted);margin:10px 0 0">The CNN Fear &amp; Greed Index sat at 28 (Fear) into the close — investors were cautious ahead of Micron's earnings. As a contrarian gauge, fear readings can leave room for upside surprises.</p>
+        </div>
+      </div>
+    </div>
 
     <h2 class="sec" id="analysis">Analysis of the Day</h2>
-    <div class="panel" id="analysis-body"></div>
+    <div class="panel">
+      <p>June 24 was a tale of two markets. The tech-heavy Nasdaq fell 0.43% and the S&amp;P 500 slipped 0.10%, dragged down by energy, communications and technology, while the Dow Jones (+0.35%) and the Russell 2000 (+0.37%) finished higher. That split points to rotation — money leaving crowded megacap tech and moving toward value and smaller names.</p>
+      <p>All eyes were on Micron, which reported after the bell and delivered a beat-and-raise that ignited after-hours enthusiasm for chips. The setup mattered: with the CNN Fear &amp; Greed Index down at 28 (Fear) and the 10-year Treasury near 4.5%, sentiment had turned cautious into the print — exactly the kind of backdrop where an upside surprise can move the tape.</p>
+    </div>
 
     <h2 class="sec" id="news">Today's News, Summarized</h2>
-    <div class="panel news" id="news-list"></div>
+    <div class="panel news">
+      <a href="#"><strong>Micron delivers a beat-and-raise after the bell, lifting chip sentiment</strong><div class="src">Summary · source: TheStreet →</div></a>
+      <a href="#"><strong>Energy, communications and tech drag the S&amp;P and Nasdaq lower</strong><div class="src">Summary · source: TheStreet →</div></a>
+      <a href="#"><strong>Dow and small caps buck the trend with modest gains</strong><div class="src">Summary · source: CNBC →</div></a>
+    </div>
   </main>
 
   <aside>
@@ -130,97 +203,5 @@
     © 2026 MarketPulse Daily · About · Contact · Privacy Policy · Terms · 🌐 Auto-translated by region
   </div>
 </footer>
-
-<script>
-/* ===== DAILY DATA (edit this block each day) — feed: 2026-06-24 close ===== */
-window.SITE_DATA = {
-  "dateLabel": "Market Close · Wednesday, June 24, 2026",
-  "headline": "Tech slips into Micron's earnings as Dow and small caps hold up",
-  "summary": "The S&P 500 and Nasdaq edged lower, weighed by energy, communications and technology, while the Dow and Russell 2000 closed higher. After the bell, Micron delivered a beat-and-raise that lifted chip sentiment.",
-  "indices": [
-    {"name":"S&P 500","slug":"sp500","value":"7,358.22","chg":"-0.10%","up":false,"ready":true},
-    {"name":"Nasdaq","slug":"nasdaq","value":"25,476.44","chg":"-0.43%","up":false,"ready":true},
-    {"name":"Russell 2000","slug":"russell","value":"2,986.63","chg":"+0.37%","up":true,"ready":true},
-    {"name":"Small Caps","slug":"smallcaps","value":"—","chg":"setting up source","up":true,"ready":false},
-    {"name":"Micro Caps","slug":"microcaps","value":"—","chg":"setting up source","up":true,"ready":false},
-    {"name":"Commodities","slug":"commodities","value":"Gold $4,027","chg":"+0.45%","up":true,"ready":true}
-  ],
-  "macro": [
-    {"k":"CPI (YoY)","v":"4.2%","tone":"neg"},
-    {"k":"Fed Funds Rate","v":"3.63%","tone":""},
-    {"k":"10Y Treasury","v":"4.50%","tone":""},
-    {"k":"Unemployment","v":"4.3%","tone":""}
-  ],
-  "fearGreed": {"value":28,"label":"Fear",
-    "note":"The CNN Fear & Greed Index sat at 28 (Fear) into the close — investors were cautious ahead of Micron's earnings. As a contrarian gauge, fear readings can leave room for upside surprises."},
-  "analysis": [
-    "June 24 was a tale of two markets. The tech-heavy Nasdaq fell 0.43% and the S&P 500 slipped 0.10%, dragged down by energy, communications and technology, while the Dow Jones (+0.35%) and the Russell 2000 (+0.37%) finished higher. That split points to rotation — money leaving crowded megacap tech and moving toward value and smaller names.",
-    "All eyes were on Micron, which reported after the bell and delivered a beat-and-raise that ignited after-hours enthusiasm for chips. The setup mattered: with the CNN Fear & Greed Index down at 28 (Fear) and the 10-year Treasury near 4.5%, sentiment had turned cautious into the print — exactly the kind of backdrop where an upside surprise can move the tape."
-  ],
-  "news": [
-    {"h":"Micron delivers a beat-and-raise after the bell, lifting chip sentiment","src":"TheStreet"},
-    {"h":"Energy, communications and tech drag the S&P and Nasdaq lower","src":"TheStreet"},
-    {"h":"Dow and small caps buck the trend with modest gains","src":"CNBC"}
-  ],
-  "categories": [
-    {"name":"Biggest Movers — US Market","tag":"All listed stocks","ready":true,
-      "gain":[["MEI","Methode Electronics","+29.1%"],["BB","BlackBerry","+22.1%"],["AYI","Acuity Brands","+21.1%"],["KYMR","Kymera Therapeutics","+20.5%"],["MLKN","MillerKnoll","+20.5%"],["TECH","Bio-Techne","+19.4%"]],
-      "lose":[["SPRY","ARS Pharmaceuticals","-26.9%"],["ICCM","IceCure Medical","-24.2%"],["TCOM","Trip.com Group","-16.0%"],["ALOY","REalloys","-14.7%"],["CTRN","Citi Trends","-13.6%"],["RGC","Regencell Bioscience","-13.5%"]]},
-    {"name":"Commodities — Metals","tag":"CME · COMEX","ready":true,
-      "gain":[["GC","Gold","+0.45%"]],
-      "lose":[["SI","Silver","-0.27%"]]},
-    {"name":"S&P 500","tag":"Large Cap","ready":false,"gain":[],"lose":[]},
-    {"name":"Nasdaq","tag":"Tech","ready":false,"gain":[],"lose":[]},
-    {"name":"Russell 2000","tag":"Small-Cap Index","ready":false,"gain":[],"lose":[]},
-    {"name":"Small Caps","tag":"Broad Small-Cap","ready":false,"gain":[],"lose":[]},
-    {"name":"Micro Caps","tag":"Micro-Cap","ready":false,"gain":[],"lose":[]}
-  ]
-};
-/* ===== end daily data ===== */
-
-const D=window.SITE_DATA||{};
-document.getElementById('date').textContent=D.dateLabel||'';
-document.getElementById('headline').textContent=D.headline||'';
-document.getElementById('summary').textContent=D.summary||'';
-
-document.getElementById('tiles').innerHTML=(D.indices||[]).map(t=>{
-  const chgCls = t.ready ? (t.up?'pos':'neg') : 'soon';
-  const arrow = t.ready ? (t.up?'▲ ':'▼ ') : '';
-  const inner=`<div class="name">${t.name}</div><div class="val">${t.value}</div>
-    <div class="chg ${chgCls}">${arrow}${t.chg}</div>`;
-  return t.ready
-    ? `<a class="tile" href="idx.html?i=${t.slug}&n=${encodeURIComponent(t.name)}&v=${encodeURIComponent(t.value)}&c=${encodeURIComponent(t.chg)}">${inner}</a>`
-    : `<div class="tile pending">${inner}</div>`;
-}).join('');
-
-function rows(list){
-  return list.map(r=>`
-    <a class="row" href="asset.html?t=${encodeURIComponent(r[0])}&n=${encodeURIComponent(r[1])}&c=${encodeURIComponent(r[2])}">
-      <span><span class="tick">${r[0]}</span><div class="co">${r[1]}</div></span>
-      <span class="pct ${r[2].startsWith('+')?'pos':'neg'}">${r[2]}</span>
-      <span class="hint">📰 Learn more →</span>
-    </a>`).join('');
-}
-document.getElementById('categories').innerHTML=(D.categories||[]).map(c=>{
-  const body = c.ready
-    ? `<div class="cols">
-         <div class="col gain"><h4>▲ Top Gainers</h4>${rows(c.gain)}</div>
-         <div class="col lose"><h4>▼ Top Losers</h4>${rows(c.lose)}</div>
-       </div>`
-    : `<div class="pendingbox">Per-category data source being configured — coming soon.</div>`;
-  return `<div class="cat">
-    <div class="cat-head"><span>${c.name}</span><span class="tag">${c.tag}</span></div>
-    ${body}</div>`;
-}).join('');
-
-document.getElementById('macroRow').innerHTML=(D.macro||[]).map(m=>`
-  <div class="mchip"><div class="k">${m.k}</div><div class="v ${m.tone||''}">${m.v}</div></div>`).join('');
-
-const fg=D.fearGreed||{value:50,label:'Neutral',note:''};
-const fgCls = fg.value>=55?'pos':(fg.value<=45?'neg':'');
-document.getElementById('fg').innerHTML=`
-  <div style="text-align:center"><div class="num ${fgCls}">${fg.value}</div><div class="lab ${fgCls}">${fg.label}</div></div>
-  <div class="meter">
-    <div class="bar"><div class="ptr" style="left:${fg.value}%"></div></div>
-    <div class="scale"><span>Extreme Fear</span><span>Fear</span><span>Neutral</span><span>Greed</span><span>Extreme Greed</span></div>
-    <p style="font-size:13px;
+</body>
+</html>
