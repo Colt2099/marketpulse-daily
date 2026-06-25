@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MarketPulse Daily — US Market Close, Explained</title>
+<style>
+  :root{--bg:#0b1220;--panel:#121b2e;--panel2:#16223a;--line:#243150;--txt:#e8eef9;--muted:#93a1bd;--up:#2ecc71;--down:#ff5d6c;--accent:#4f8cff;--accent2:#9b6bff;--chip:#1c2942}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5}
+  a{color:var(--accent);text-decoration:none}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 18px}
+  header{border-bottom:1px solid var(--line);background:linear-gradient(180deg,#0e1830,#0b1220)}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px}
+  .dot{width:12px;height:12px;border-radius:50%;background:var(--up);box-shadow:0 0 12px var(--up)}
+  .menu{display:flex;gap:18px;color:var(--muted);font-size:14px;flex-wrap:wrap}
+  .menu a{color:var(--muted)} .menu a:hover{color:var(--txt)}
+  .lang{font-size:12px;color:var(--muted);border:1px solid var(--line);padding:5px 10px;border-radius:20px}
+  .grid{display:grid;grid-template-columns:1fr 300px;gap:24px;padding:24px 0}
+  @media(max-width:900px){.grid{grid-template-columns:1fr}}
+  .hero{background:linear-gradient(135deg,#16223a,#101a30);border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:22px}
+  .date{color:var(--muted);font-size:13px;text-transform:uppercase;letter-spacing:1px}
+  .hero h1{margin:6px 0 10px;font-size:25px}
+  .hero p{margin:0;color:#cdd8ee}
+  .tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:18px}
+  @media(max-width:760px){.tiles{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:460px){.tiles{grid-template-columns:repeat(2,1fr)}}
+  .tile{display:block;background:var(--panel2);border:1px solid var(--line);border-radius:11px;padding:10px;position:relative;transition:.15s;color:var(--txt)}
+  a.tile:hover{border-color:var(--accent);background:#1a2540;transform:translateY(-2px)}
+  a.tile::after{content:"📊 Why? →";position:absolute;top:8px;right:9px;font-size:9px;color:var(--accent);opacity:0;transition:.15s}
+  a.tile:hover::after{opacity:1}
+  .tile.pending{opacity:.55}
+  .tile .name{font-size:12px;color:var(--muted)} .tile .val{font-size:16px;font-weight:700;margin-top:2px}
+  .pos{color:var(--up)} .neg{color:var(--down)} .chg{font-size:12px;font-weight:600}
+  .chg.soon{color:var(--muted);font-weight:500;font-style:italic}
+  h2.sec{font-size:18px;margin:24px 0 12px;display:flex;align-items:center;gap:8px}
+  h2.sec::before{content:"";width:4px;height:18px;background:linear-gradient(var(--accent),var(--accent2));border-radius:3px}
+  .cat{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:18px}
+  .cat-head{padding:12px 16px;background:var(--panel2);border-bottom:1px solid var(--line);font-weight:700;font-size:15px;display:flex;justify-content:space-between;align-items:center}
+  .cat-head .tag{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:0}
+  @media(max-width:620px){.cols{grid-template-columns:1fr}}
+  .col h4{margin:0;padding:9px 16px;font-size:12px;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--line)}
+  .col.gain h4{color:var(--up)} .col.lose h4{color:var(--down)}
+  .col.lose{border-left:1px solid var(--line)}
+  @media(max-width:620px){.col.lose{border-left:none;border-top:1px solid var(--line)}}
+  .row{position:relative;display:flex;justify-content:space-between;align-items:center;padding:8px 16px;border-bottom:1px solid #1b2740;cursor:pointer;transition:background .15s}
+  .row:last-child{border-bottom:none} .row:hover{background:#1a2540}
+  .tick{font-weight:700;font-size:14px} .co{color:var(--muted);font-size:11px}
+  .pct{font-weight:700;font-size:14px}
+  .hint{position:absolute;right:14px;top:50%;transform:translateY(-50%) translateX(8px);background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;opacity:0;pointer-events:none;transition:.18s;white-space:nowrap;box-shadow:0 4px 14px rgba(79,140,255,.4)}
+  .row:hover .hint{opacity:1;transform:translateY(-50%) translateX(0)}
+  .row:hover .pct{opacity:.25}
+  .pendingbox{padding:16px;color:var(--muted);font-size:13px;font-style:italic}
+  .macro{display:flex;gap:12px;flex-wrap:wrap}
+  .mchip{background:var(--chip);border:1px solid var(--line);border-radius:12px;padding:12px 14px;min-width:140px;flex:1}
+  .mchip .k{font-size:12px;color:var(--muted)} .mchip .v{font-size:18px;font-weight:700;margin-top:3px}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+  .panel p{color:#d4ddef}
+  .fg{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+  .fg .num{font-size:46px;font-weight:800;line-height:1}
+  .fg .lab{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1px}
+  .fg .meter{flex:1;min-width:240px}
+  .fg .bar{height:14px;border-radius:8px;position:relative;background:linear-gradient(90deg,#ff5d6c,#ffb84d,#ffe14d,#9be15d,#2ecc71)}
+  .fg .ptr{position:absolute;top:-5px;width:4px;height:24px;background:#fff;border-radius:3px;box-shadow:0 0 8px rgba(255,255,255,.8)}
+  .fg .scale{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:6px}
+  .news a{display:block;padding:12px 0;border-bottom:1px solid #1b2740}
+  .news a:last-child{border-bottom:none} .news .src{color:var(--muted);font-size:12px}
+  aside{display:flex;flex-direction:column;gap:18px}
+  .ad{position:sticky;top:18px}
+  .adbox{background:repeating-linear-gradient(45deg,#10192e,#10192e 10px,#121d34 10px,#121d34 20px);border:1px dashed var(--line);border-radius:14px;height:250px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;text-align:center}
+  .adbox.tall{height:600px}
+  .adlabel{font-size:10px;color:#6b7794;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+  .nl{background:linear-gradient(135deg,#1d2b4d,#162038);border:1px solid var(--line);border-radius:14px;padding:16px}
+  .nl input{width:100%;padding:10px;border-radius:8px;border:1px solid var(--line);background:#0d1626;color:var(--txt);margin:8px 0}
+  .nl button{width:100%;padding:10px;border:none;border-radius:8px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff;font-weight:700;cursor:pointer}
+  footer{border-top:1px solid var(--line);margin-top:30px;padding:22px 0;color:var(--muted);font-size:13px}
+  .disc{background:#0e1830;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:12px;color:var(--muted);margin-bottom:14px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <div class="brand"><span class="dot"></span> MarketPulse <span style="color:var(--muted);font-weight:600">Daily</span></div>
+    <nav class="menu"><a href="#">Home</a><a href="#cats">Movers</a><a href="#macro">Macro</a><a href="#analysis">Analysis</a><a href="#news">News</a></nav>
+    <span class="lang">🌐 EN · auto</span>
+  </div>
+</header>
+
+<div class="wrap grid">
+  <main>
+    <section class="hero">
+      <div class="date" id="date">—</div>
+      <h1 id="headline">—</h1>
+      <p id="summary">—</p>
+      <div class="tiles" id="tiles"></div>
+    </section>
+
+    <h2 class="sec" id="cats">Today's Movers</h2>
+    <div id="categories"></div>
+
+    <h2 class="sec" id="macro">US Macro Today</h2>
+    <div class="macro" id="macroRow"></div>
+
+    <h2 class="sec" id="sentiment">Market Sentiment — Fear &amp; Greed</h2>
+    <div class="panel"><div class="fg" id="fg"></div></div>
+
+    <h2 class="sec" id="analysis">Analysis of the Day</h2>
+    <div class="panel" id="analysis-body"></div>
+
+    <h2 class="sec" id="news">Today's News, Summarized</h2>
+    <div class="panel news" id="news-list"></div>
+  </main>
+
+  <aside>
+    <div class="ad"><div class="adlabel">Advertisement</div><div class="adbox">Ad slot (300×250)<br>discreet · right column</div></div>
+    <div class="nl">
+      <strong>Daily Market Recap</strong>
+      <p style="color:var(--muted);font-size:13px;margin:6px 0 0">Get the close in your inbox, free.</p>
+      <input placeholder="you@email.com"><button>Subscribe</button>
+    </div>
+    <div class="ad"><div class="adlabel">Advertisement</div><div class="adbox tall">Ad slot (300×600)<br>sticky · non-intrusive</div></div>
+  </aside>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="disc"><strong>Disclaimer:</strong> MarketPulse Daily is for informational and educational purposes only and does not constitute investment advice or a recommendation to buy or sell any security. Data may be delayed.</div>
+    © 2026 MarketPulse Daily · About · Contact · Privacy Policy · Terms · 🌐 Auto-translated by region
+  </div>
+</footer>
+
+<script>
+/* ===== DAILY DATA (edit this block each day) — feed: 2026-06-24 close ===== */
+window.SITE_DATA = {
+  "dateLabel": "Market Close · Wednesday, June 24, 2026",
+  "headline": "Tech slips into Micron's earnings as Dow and small caps hold up",
+  "summary": "The S&P 500 and Nasdaq edged lower, weighed by energy, communications and technology, while the Dow and Russell 2000 closed higher. After the bell, Micron delivered a beat-and-raise that lifted chip sentiment.",
+  "indices": [
+    {"name":"S&P 500","slug":"sp500","value":"7,358.22","chg":"-0.10%","up":false,"ready":true},
+    {"name":"Nasdaq","slug":"nasdaq","value":"25,476.44","chg":"-0.43%","up":false,"ready":true},
+    {"name":"Russell 2000","slug":"russell","value":"2,986.63","chg":"+0.37%","up":true,"ready":true},
+    {"name":"Small Caps","slug":"smallcaps","value":"—","chg":"setting up source","up":true,"ready":false},
+    {"name":"Micro Caps","slug":"microcaps","value":"—","chg":"setting up source","up":true,"ready":false},
+    {"name":"Commodities","slug":"commodities","value":"Gold $4,027","chg":"+0.45%","up":true,"ready":true}
+  ],
+  "macro": [
+    {"k":"CPI (YoY)","v":"4.2%","tone":"neg"},
+    {"k":"Fed Funds Rate","v":"3.63%","tone":""},
+    {"k":"10Y Treasury","v":"4.50%","tone":""},
+    {"k":"Unemployment","v":"4.3%","tone":""}
+  ],
+  "fearGreed": {"value":28,"label":"Fear",
+    "note":"The CNN Fear & Greed Index sat at 28 (Fear) into the close — investors were cautious ahead of Micron's earnings. As a contrarian gauge, fear readings can leave room for upside surprises."},
+  "analysis": [
+    "June 24 was a tale of two markets. The tech-heavy Nasdaq fell 0.43% and the S&P 500 slipped 0.10%, dragged down by energy, communications and technology, while the Dow Jones (+0.35%) and the Russell 2000 (+0.37%) finished higher. That split points to rotation — money leaving crowded megacap tech and moving toward value and smaller names.",
+    "All eyes were on Micron, which reported after the bell and delivered a beat-and-raise that ignited after-hours enthusiasm for chips. The setup mattered: with the CNN Fear & Greed Index down at 28 (Fear) and the 10-year Treasury near 4.5%, sentiment had turned cautious into the print — exactly the kind of backdrop where an upside surprise can move the tape."
+  ],
+  "news": [
+    {"h":"Micron delivers a beat-and-raise after the bell, lifting chip sentiment","src":"TheStreet"},
+    {"h":"Energy, communications and tech drag the S&P and Nasdaq lower","src":"TheStreet"},
+    {"h":"Dow and small caps buck the trend with modest gains","src":"CNBC"}
+  ],
+  "categories": [
+    {"name":"Biggest Movers — US Market","tag":"All listed stocks","ready":true,
+      "gain":[["MEI","Methode Electronics","+29.1%"],["BB","BlackBerry","+22.1%"],["AYI","Acuity Brands","+21.1%"],["KYMR","Kymera Therapeutics","+20.5%"],["MLKN","MillerKnoll","+20.5%"],["TECH","Bio-Techne","+19.4%"]],
+      "lose":[["SPRY","ARS Pharmaceuticals","-26.9%"],["ICCM","IceCure Medical","-24.2%"],["TCOM","Trip.com Group","-16.0%"],["ALOY","REalloys","-14.7%"],["CTRN","Citi Trends","-13.6%"],["RGC","Regencell Bioscience","-13.5%"]]},
+    {"name":"Commodities — Metals","tag":"CME · COMEX","ready":true,
+      "gain":[["GC","Gold","+0.45%"]],
+      "lose":[["SI","Silver","-0.27%"]]},
+    {"name":"S&P 500","tag":"Large Cap","ready":false,"gain":[],"lose":[]},
+    {"name":"Nasdaq","tag":"Tech","ready":false,"gain":[],"lose":[]},
+    {"name":"Russell 2000","tag":"Small-Cap Index","ready":false,"gain":[],"lose":[]},
+    {"name":"Small Caps","tag":"Broad Small-Cap","ready":false,"gain":[],"lose":[]},
+    {"name":"Micro Caps","tag":"Micro-Cap","ready":false,"gain":[],"lose":[]}
+  ]
+};
+/* ===== end daily data ===== */
+
+const D=window.SITE_DATA||{};
+document.getElementById('date').textContent=D.dateLabel||'';
+document.getElementById('headline').textContent=D.headline||'';
+document.getElementById('summary').textContent=D.summary||'';
+
+document.getElementById('tiles').innerHTML=(D.indices||[]).map(t=>{
+  const chgCls = t.ready ? (t.up?'pos':'neg') : 'soon';
+  const arrow = t.ready ? (t.up?'▲ ':'▼ ') : '';
+  const inner=`<div class="name">${t.name}</div><div class="val">${t.value}</div>
+    <div class="chg ${chgCls}">${arrow}${t.chg}</div>`;
+  return t.ready
+    ? `<a class="tile" href="idx.html?i=${t.slug}&n=${encodeURIComponent(t.name)}&v=${encodeURIComponent(t.value)}&c=${encodeURIComponent(t.chg)}">${inner}</a>`
+    : `<div class="tile pending">${inner}</div>`;
+}).join('');
+
+function rows(list){
+  return list.map(r=>`
+    <a class="row" href="asset.html?t=${encodeURIComponent(r[0])}&n=${encodeURIComponent(r[1])}&c=${encodeURIComponent(r[2])}">
+      <span><span class="tick">${r[0]}</span><div class="co">${r[1]}</div></span>
+      <span class="pct ${r[2].startsWith('+')?'pos':'neg'}">${r[2]}</span>
+      <span class="hint">📰 Learn more →</span>
+    </a>`).join('');
+}
+document.getElementById('categories').innerHTML=(D.categories||[]).map(c=>{
+  const body = c.ready
+    ? `<div class="cols">
+         <div class="col gain"><h4>▲ Top Gainers</h4>${rows(c.gain)}</div>
+         <div class="col lose"><h4>▼ Top Losers</h4>${rows(c.lose)}</div>
+       </div>`
+    : `<div class="pendingbox">Per-category data source being configured — coming soon.</div>`;
+  return `<div class="cat">
+    <div class="cat-head"><span>${c.name}</span><span class="tag">${c.tag}</span></div>
+    ${body}</div>`;
+}).join('');
+
+document.getElementById('macroRow').innerHTML=(D.macro||[]).map(m=>`
+  <div class="mchip"><div class="k">${m.k}</div><div class="v ${m.tone||''}">${m.v}</div></div>`).join('');
+
+const fg=D.fearGreed||{value:50,label:'Neutral',note:''};
+const fgCls = fg.value>=55?'pos':(fg.value<=45?'neg':'');
+document.getElementById('fg').innerHTML=`
+  <div style="text-align:center"><div class="num ${fgCls}">${fg.value}</div><div class="lab ${fgCls}">${fg.label}</div></div>
+  <div class="meter">
+    <div class="bar"><div class="ptr" style="left:${fg.value}%"></div></div>
+    <div class="scale"><span>Extreme Fear</span><span>Fear</span><span>Neutral</span><span>Greed</span><span>Extreme Greed</span></div>
+    <p style="font-size:13px;color:var(--muted);margin:10px 0 0">${fg.note||''}</p>
+  </div>`;
+
+document.getElementById('analysis-body').innerHTML=(D.analysis||[]).map(p=>`<p>${p}</p>`).join('');
+document.getElementById('news-list').innerHTML=(D.news||[]).map(x=>`
+  <a href="#"><strong>${x.h}</strong><div class="src">Summary · source: ${x.src} →</div></a>`).join('');
+</script>
+</body>
+</html>
