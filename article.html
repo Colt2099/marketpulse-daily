@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Article — MarketPulse Daily</title>
+<style>
+  :root{--bg:#0b1220;--panel:#121b2e;--panel2:#16223a;--line:#243150;--txt:#e8eef9;--muted:#93a1bd;--up:#2ecc71;--down:#ff5d6c;--accent:#4f8cff;--accent2:#9b6bff}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.7}
+  a{color:var(--accent);text-decoration:none}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 18px}
+  header{border-bottom:1px solid var(--line);background:linear-gradient(180deg,#0e1830,#0b1220)}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px}
+  .dot{width:12px;height:12px;border-radius:50%;background:var(--up);box-shadow:0 0 12px var(--up)}
+  .grid{display:grid;grid-template-columns:1fr 300px;gap:24px;padding:24px 0}
+  @media(max-width:900px){.grid{grid-template-columns:1fr}}
+  .back{color:var(--muted);font-size:14px;display:inline-block;margin-bottom:14px}
+  article{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px}
+  article h1{font-size:28px;margin:0 0 8px;line-height:1.25}
+  .meta{color:var(--muted);font-size:13px;margin-bottom:18px;border-bottom:1px solid var(--line);padding-bottom:14px}
+  article p{color:#dbe3f2;font-size:16px}
+  .mlink{color:#9cc0ff;border-bottom:1px dotted #5d7bb5;font-weight:600}
+  .mlink:hover{color:#fff;border-bottom-color:#fff}
+  /* metrics table */
+  .mtable{width:100%;border-collapse:collapse;margin-top:8px;font-size:14px}
+  .mtable th{text-align:right;color:var(--muted);font-weight:600;padding:8px 12px;border-bottom:1px solid var(--line);font-size:12px;text-transform:uppercase;letter-spacing:.4px}
+  .mtable th:first-child{text-align:left}
+  .mtable td{padding:9px 12px;border-bottom:1px solid #1b2740;text-align:right}
+  .mtable td:first-child{text-align:left}
+  .mtable tr:last-child td{border-bottom:none}
+  .pos{color:var(--up)} .neg{color:var(--down)} .neu{color:#ffd27a}
+  /* fear greed */
+  .fg{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .fg .num{font-size:38px;font-weight:800;line-height:1}
+  .fg .lab{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px}
+  .fg .meter{flex:1;min-width:220px}
+  .fg .bar{height:13px;border-radius:8px;position:relative;background:linear-gradient(90deg,#ff5d6c,#ffb84d,#ffe14d,#9be15d,#2ecc71)}
+  .fg .ptr{position:absolute;top:-5px;width:4px;height:23px;background:#fff;border-radius:3px;box-shadow:0 0 8px rgba(255,255,255,.8)}
+  .fg .scale{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:6px}
+  .sub{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin:22px 0 8px;font-weight:700}
+  /* candles */
+  .tf{display:flex;gap:8px;margin:4px 0 12px}
+  .tf button{background:var(--panel2);color:var(--muted);border:1px solid var(--line);border-radius:8px;padding:6px 14px;font-size:13px;font-weight:600;cursor:pointer}
+  .tf button.on{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff;border-color:transparent}
+  .chartwrap{background:#0d1626;border:1px solid var(--line);border-radius:12px;padding:10px}
+  .caption{font-size:12px;color:var(--muted);margin-top:8px}
+  .src{margin-top:22px;font-size:14px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
+  .src b{color:#cdd8ee}
+  .newsfooter{margin-top:16px;padding:13px 15px;border-left:3px solid var(--accent);background:rgba(79,140,255,.07);border-radius:0 8px 8px 0;font-size:13px;color:#b8c4dc;font-style:italic}
+  .newsfooter b{color:#d6e0f2;font-style:normal}
+  aside{display:flex;flex-direction:column;gap:18px}
+  .ad{position:sticky;top:18px}
+  .adbox{background:repeating-linear-gradient(45deg,#10192e,#10192e 10px,#121d34 10px,#121d34 20px);border:1px dashed var(--line);border-radius:14px;height:600px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;text-align:center}
+  .adlabel{font-size:10px;color:#6b7794;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+  .demo{background:#3a2a12;color:#ffcf8a;border:1px solid #6b4d1f;font-size:12px;text-align:center;padding:7px}
+</style>
+</head>
+<body>
+<div class="demo">PROTÓTIPO — leitura da notícia. Métricas são clicáveis; commodities mostram gráfico de candles. Dados de exemplo.</div>
+<header>
+  <div class="wrap nav">
+    <div class="brand"><span class="dot"></span> MarketPulse <span style="color:var(--muted);font-weight:600">Daily</span></div>
+    <span style="font-size:12px;color:var(--muted);border:1px solid var(--line);padding:5px 10px;border-radius:20px">🌐 EN · auto</span>
+  </div>
+</header>
+
+<div class="wrap grid">
+  <main>
+    <a class="back" id="back" href="#">← Back</a>
+    <article>
+      <h1 id="h1">—</h1>
+      <div class="meta" id="meta">—</div>
+      <div id="body"></div>
+
+      <!-- metrics (stocks) OR candle chart (commodities) injected here -->
+      <div id="dataBlock"></div>
+
+      <div class="sub">Market Sentiment — Fear &amp; Greed</div>
+      <div class="fg">
+        <div style="text-align:center"><div class="num pos">62</div><div class="lab pos">Greed</div></div>
+        <div class="meter">
+          <div class="bar"><div class="ptr" style="left:62%"></div></div>
+          <div class="scale"><span>Ext. Fear</span><span>Fear</span><span>Neutral</span><span>Greed</span><span>Ext. Greed</span></div>
+          <p style="font-size:13px;color:var(--muted);margin:9px 0 0">At 62/100 the broad market sits in Greed territory today.</p>
+        </div>
+      </div>
+
+      <div class="src" id="src"></div>
+      <div class="newsfooter"><b>Notice:</b> This content is for informational purposes only. Nothing on this site is a recommendation to buy or sell any asset. If you have questions, please seek advice from a qualified professional.</div>
+    </article>
+  </main>
+  <aside>
+    <div class="ad"><div class="adlabel">Advertisement</div><div class="adbox">Ad slot (300×600)<br>sticky · non-intrusive</div></div>
+  </aside>
+</div>
+
+<script>
+const q=new URLSearchParams(location.search);
+const t=q.get('t')||'NVDA', n=q.get('n')||'NVIDIA';
+const id=parseInt(q.get('id')||'0',10);
+const idx=q.get('idx')||'sp500';
+document.getElementById('back').href=`asset.html?t=${encodeURIComponent(t)}&n=${encodeURIComponent(n)}`;
+
+// which tickers are commodities
+const COMMOD={GC:"Gold",SI:"Silver",HG:"Copper",CL:"Crude Oil",PL:"Platinum",AL:"Aluminum",
+  NG:"Natural Gas",W:"Wheat",C:"Corn",ZS:"Soybeans",PA:"Palladium",CC:"Cocoa"};
+const isCommod = Object.prototype.hasOwnProperty.call(COMMOD,t);
+
+const titles=[
+  `${n} extends gains as momentum builds`,
+  `What's behind today's move in ${t}`,
+  `${n} in focus ahead of upcoming data`,
+  `Analysts weigh in on ${t} after the session`,
+  `${n}: the technical and fundamental picture`
+];
+const sources=["Reuters","Bloomberg","CNBC","MarketWatch","Yahoo Finance"];
+const source=sources[id]||"Reuters";
+
+document.getElementById('h1').textContent=titles[id]||titles[0];
+document.getElementById('meta').textContent=`📰 ${source} · MarketPulse summary · June 24, 2026`;
+document.getElementById('src').innerHTML=`<b>Source:</b> ${source}`;
+
+// metric link helper
+function ml(label,key){return `<a class="mlink" href="metric.html?m=${key}&t=${encodeURIComponent(t)}&idx=${idx}&from=${encodeURIComponent(location.href)}">${label}</a>`;}
+
+if(isCommod){
+  document.getElementById('body').innerHTML=`
+    <p>${n} (${t}) drew attention today amid shifting supply-demand signals and a moving US dollar. This is an original summary of the session; the full reporting is credited at the foot of the page.</p>
+    <p>For commodities, valuation multiples don't apply — so below is the price action itself. Use the buttons to switch the timeframe; each view shows the last 30 periods.</p>`;
+}else{
+  document.getElementById('body').innerHTML=`
+    <p>${n} (${t}) drew attention after the close today on a mix of macro tailwinds and company-specific flow. This is an original summary; the full reporting is credited at the foot of the page.</p>
+    <p>The backdrop helped: a softer inflation print eased Treasury yields and lifted appetite for rate-sensitive names. On the stock, traders noted elevated ${ml('volume','volume')} versus the 30-day average — conviction, not a thin drift.</p>
+    <p>On the fundamentals, the reference gauges are valuation multiples like ${ml('P/E','pe')} and ${ml('EV/EBITDA','evebitda')}, alongside ${ml('ROI','roi')} and ${ml('liquidity','liquidity')}. Click any metric to see what it means and how ${t} compares to its index average.</p>`;
+}
+
+// ---------- DATA BLOCK ----------
+const db=document.getElementById('dataBlock');
+
+if(isCommod){
+  db.innerHTML=`
+    <div class="sub">${n} — Candlestick</div>
+    <div class="tf">
+      <button data-tf="D" class="on">Daily</button>
+      <button data-tf="W">Weekly</button>
+      <button data-tf="M">Monthly</button>
+    </div>
+    <div class="chartwrap"><div id="chart"></div></div>
+    <div class="caption" id="cap">Last 30 daily candles (example data).</div>`;
+
+  // seeded RNG for stable, realistic-looking candles
+  function rng(seed){let s=seed>>>0;return()=>{s=(s*1664525+1013904223)>>>0;return s/4294967296;};}
+  const bases={GC:2350,SI:30,HG:4.5,CL:78,PL:980,AL:2.4,NG:2.8,W:6.1,C:4.5,ZS:11.8,PA:1010,CC:7800};
+  function genOHLC(tf){
+    const r=rng((t.charCodeAt(0)*97 + tf.charCodeAt(0)) || 7);
+    const vol={D:0.012,W:0.03,M:0.06}[tf];
+    let price=(bases[t]||100);
+    const out=[];
+    for(let i=0;i<30;i++){
+      const o=price;
+      const drift=(r()-0.48)*vol*o;
+      const c=Math.max(0.01,o+drift);
+      const hi=Math.max(o,c)*(1+r()*vol*0.6);
+      const lo=Math.min(o,c)*(1-r()*vol*0.6);
+      out.push({o,h:hi,l:lo,c});
+      price=c;
+    }
+    return out;
+  }
+  function drawCandles(tf){
+    const data=genOHLC(tf);
+    const W=620,H=300,padL=46,padR=10,padT=10,padB=22;
+    const lows=Math.min(...data.map(d=>d.l)), highs=Math.max(...data.map(d=>d.h));
+    const span=highs-lows||1;
+    const y=v=>padT+(highs-v)/span*(H-padT-padB);
+    const innerW=W-padL-padR, step=innerW/data.length, bw=step*0.6;
+    let svg=`<svg viewBox="0 0 ${W} ${H}" width="100%" xmlns="http://www.w3.org/2000/svg">`;
+    // gridlines + price labels
+    for(let g=0;g<=4;g++){
+      const val=lows+span*g/4, yy=y(val);
+      svg+=`<line x1="${padL}" y1="${yy}" x2="${W-padR}" y2="${yy}" stroke="#1b2740" stroke-width="1"/>`;
+      svg+=`<text x="${padL-6}" y="${yy+3}" text-anchor="end" font-size="9" fill="#6b7794">${val.toFixed(val<10?2:0)}</text>`;
+    }
+    data.forEach((d,i)=>{
+      const xc=padL+step*(i+0.5);
+      const upC=d.c>=d.o, col=upC?'#2ecc71':'#ff5d6c';
+      svg+=`<line x1="${xc}" y1="${y(d.h)}" x2="${xc}" y2="${y(d.l)}" stroke="${col}" stroke-width="1"/>`;
+      const yo=y(d.o), yc=y(d.c), top=Math.min(yo,yc), hgt=Math.max(1,Math.abs(yo-yc));
+      svg+=`<rect x="${xc-bw/2}" y="${top}" width="${bw}" height="${hgt}" fill="${col}"/>`;
+    });
+    svg+=`</svg>`;
+    document.getElementById('chart').innerHTML=svg;
+    const labels={D:"daily",W:"weekly",M:"monthly"};
+    document.getElementById('cap').textContent=`Last 30 ${labels[tf]} candles (example data).`;
+  }
+  drawCandles('D');
+  db.querySelectorAll('.tf button').forEach(b=>b.addEventListener('click',()=>{
+    db.querySelectorAll('.tf button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on'); drawCandles(b.dataset.tf);
+  }));
+
+}else{
+  // stock metrics table with clickable metric names + index comparison
+  const idxNames={sp500:"S&P 500",nasdaq:"Nasdaq",russell:"Russell 2000",smallcaps:"Small-Cap",microcaps:"Micro-Cap"};
+  const rows=[
+    ["P/E","pe","45.2","24.1"],
+    ["EV/EBITDA","evebitda","38.0","16.5"],
+    ["ROI","roi","32%","15%"],
+    ["Rel. Volume","volume","1.8×","1.0×"]
+  ];
+  db.innerHTML=`
+    <div class="sub">Key metrics vs ${idxNames[idx]||'index'}</div>
+    <table class="mtable">
+      <tr><th>Metric</th><th>${t}</th><th>${idxNames[idx]||'Index'} avg</th></tr>
+      ${rows.map(r=>`<tr>
+        <td>${ml(r[0],r[1])}</td>
+        <td><b>${r[2]}</b></td>
+        <td>${r[3]}</td></tr>`).join('')}
+    </table>
+    <div class="caption">Tap any metric to learn what it means and why it matters.</div>`;
+}
+</script>
+</body>
+</html>

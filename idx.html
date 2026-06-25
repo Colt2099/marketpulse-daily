@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Index Analysis — MarketPulse Daily</title>
+<style>
+  :root{--bg:#0b1220;--panel:#121b2e;--panel2:#16223a;--line:#243150;--txt:#e8eef9;--muted:#93a1bd;--up:#2ecc71;--down:#ff5d6c;--accent:#4f8cff;--accent2:#9b6bff}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.6}
+  a{color:var(--accent);text-decoration:none}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 18px}
+  header{border-bottom:1px solid var(--line);background:linear-gradient(180deg,#0e1830,#0b1220)}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px}
+  .dot{width:12px;height:12px;border-radius:50%;background:var(--up);box-shadow:0 0 12px var(--up)}
+  .grid{display:grid;grid-template-columns:1fr 300px;gap:24px;padding:24px 0}
+  @media(max-width:900px){.grid{grid-template-columns:1fr}}
+  .back{color:var(--muted);font-size:14px;display:inline-block;margin-bottom:14px}
+  .ihead{background:linear-gradient(135deg,#16223a,#101a30);border:1px solid var(--line);border-radius:16px;padding:22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+  .ihead .n{font-size:30px;font-weight:800}
+  .ihead .tag{color:var(--muted);font-size:13px;margin-top:2px}
+  .ihead .v{font-size:30px;font-weight:800;text-align:right}
+  .pos{color:var(--up)} .neg{color:var(--down)}
+  h2.sec{font-size:18px;margin:22px 0 12px;display:flex;align-items:center;gap:8px}
+  h2.sec::before{content:"";width:4px;height:18px;background:linear-gradient(var(--accent),var(--accent2));border-radius:3px}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .panel h3{margin:0 0 8px;font-size:20px}
+  .panel p{color:#d4ddef}
+  .drivers{list-style:none;padding:0;margin:14px 0 0}
+  .drivers li{padding:10px 0;border-bottom:1px solid #1b2740;display:flex;gap:10px}
+  .drivers li:last-child{border-bottom:none}
+  .drivers .ico{font-size:18px}
+  .fg{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:14px}
+  .fg .num{font-size:38px;font-weight:800;line-height:1}
+  .fg .lab{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px}
+  .fg .meter{flex:1;min-width:220px}
+  .fg .bar{height:13px;border-radius:8px;position:relative;background:linear-gradient(90deg,#ff5d6c,#ffb84d,#ffe14d,#9be15d,#2ecc71)}
+  .fg .ptr{position:absolute;top:-5px;width:4px;height:23px;background:#fff;border-radius:3px;box-shadow:0 0 8px rgba(255,255,255,.8)}
+  .fg .scale{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:6px}
+  .related a{display:block;padding:12px 0;border-bottom:1px solid #1b2740}
+  .related a:last-child{border-bottom:none} .related .src{color:var(--muted);font-size:12px}
+  .newsfooter{margin-top:18px;padding:13px 15px;border-left:3px solid var(--accent);
+    background:rgba(79,140,255,.07);border-radius:0 8px 8px 0;font-size:13px;color:#b8c4dc;font-style:italic}
+  .newsfooter b{color:#d6e0f2;font-style:normal}
+  aside{display:flex;flex-direction:column;gap:18px}
+  .ad{position:sticky;top:18px}
+  .adbox{background:repeating-linear-gradient(45deg,#10192e,#10192e 10px,#121d34 10px,#121d34 20px);border:1px dashed var(--line);border-radius:14px;height:600px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;text-align:center}
+  .adlabel{font-size:10px;color:#6b7794;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+  .demo{background:#3a2a12;color:#ffcf8a;border:1px solid #6b4d1f;font-size:12px;text-align:center;padding:7px}
+</style>
+</head>
+<body>
+<div class="demo">PROTÓTIPO — análise de exemplo do índice, explicando o movimento do dia.</div>
+<header>
+  <div class="wrap nav">
+    <div class="brand"><span class="dot"></span> MarketPulse <span style="color:var(--muted);font-weight:600">Daily</span></div>
+    <span style="font-size:12px;color:var(--muted);border:1px solid var(--line);padding:5px 10px;border-radius:20px">🌐 EN · auto</span>
+  </div>
+</header>
+
+<div class="wrap grid">
+  <main>
+    <a class="back" href="index.html">← Back to home</a>
+    <div class="ihead">
+      <div><div class="n" id="nm">S&P 500</div><div class="tag" id="tag">US Large-Cap Index · Close June 24, 2026</div></div>
+      <div><div class="v" id="vc">5,488.21</div><div style="color:var(--muted);font-size:13px;text-align:right" id="cc">+0.84%</div></div>
+    </div>
+
+    <h2 class="sec">Why it moved today</h2>
+    <div class="panel">
+      <h3 id="head">Why the S&P 500 rose today</h3>
+      <p id="lead"></p>
+      <ul class="drivers" id="drivers"></ul>
+    </div>
+
+    <h2 class="sec">Sentiment — Fear &amp; Greed</h2>
+    <div class="panel">
+      <div class="fg">
+        <div style="text-align:center"><div class="num pos">62</div><div class="lab pos">Greed</div></div>
+        <div class="meter">
+          <div class="bar"><div class="ptr" style="left:62%"></div></div>
+          <div class="scale"><span>Ext. Fear</span><span>Fear</span><span>Neutral</span><span>Greed</span><span>Ext. Greed</span></div>
+          <p style="font-size:13px;color:var(--muted);margin:9px 0 0">At 62/100 the market is in Greed territory, in line with today's risk-on tone.</p>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="sec">Related news</h2>
+    <div class="panel related">
+      <a href="#"><strong>Soft CPI revives rate-cut bets across equities</strong><div class="src">Summary · source: Reuters →</div></a>
+      <a href="#"><strong>Megacaps lead the tape as yields ease</strong><div class="src">Summary · source: Bloomberg →</div></a>
+      <a href="#"><strong>Breadth improves but small caps lag</strong><div class="src">Summary · source: CNBC →</div></a>
+    </div>
+
+    <div class="newsfooter"><b>Notice:</b> This content is for informational purposes only. Nothing on this site is a recommendation to buy or sell any asset. If you have questions, please seek advice from a qualified professional.</div>
+  </main>
+  <aside>
+    <div class="ad"><div class="adlabel">Advertisement</div><div class="adbox">Ad slot (300×600)<br>sticky · non-intrusive</div></div>
+  </aside>
+</div>
+
+<script>
+const q=new URLSearchParams(location.search);
+const id=q.get('i')||'sp500';
+const nm=q.get('n')||'S&P 500';
+const v=q.get('v')||'5,488.21';
+const c=q.get('c')||'+0.84%';
+const up=!c.startsWith('-');
+
+const tags={sp500:"US Large-Cap Index",nasdaq:"US Tech-Heavy Index",russell:"US Small-Cap Index",
+  smallcaps:"Broad US Small-Cap Basket",microcaps:"US Micro-Cap Basket",commodities:"CME / Chicago Commodities Basket"};
+
+document.getElementById('nm').textContent=nm;
+document.getElementById('tag').textContent=(tags[id]||'US Index')+" · Close June 24, 2026";
+document.getElementById('vc').textContent=v;
+const cc=document.getElementById('cc'); cc.textContent=c; cc.className=up?'pos':'neg';
+cc.style.textAlign='right';
+const head=document.getElementById('head');
+head.textContent=`Why ${nm} ${up?'rose':'fell'} today`;
+
+document.getElementById('lead').textContent=up
+ ? `${nm} closed higher, supported by a softer-than-expected inflation reading that pushed Treasury yields lower and revived expectations of rate cuts. Rate-sensitive sectors led the advance, and broad participation kept the move orderly rather than speculative.`
+ : `${nm} closed lower as investors took profits and rotated out of recent leaders. Firmer yields and a stronger dollar weighed on the most rate-sensitive names, while defensive sectors held up better than the broad tape.`;
+
+const upDrivers=[
+  ["📉","Cooling inflation","CPI eased to 2.9% YoY, below estimates, lowering the implied path of interest rates."],
+  ["💵","Falling yields","The 10-year Treasury slipped, lifting valuations of growth and rate-sensitive stocks."],
+  ["🏦","Rate-cut odds rose","Futures markets nudged up the probability of a cut at the next Fed meeting."],
+  ["📊","Healthy breadth","More stocks advanced than declined, signaling the move was broad, not just megacaps."]
+];
+const downDrivers=[
+  ["📈","Firmer yields","Treasury yields ticked higher, pressuring high-multiple and growth names."],
+  ["💵","Stronger dollar","A firmer dollar weighed on multinationals and commodity-linked sectors."],
+  ["🔄","Profit-taking","After a strong run, investors trimmed recent winners, dragging the index lower."],
+  ["⚠️","Cautious positioning","Light volume and defensive rotation pointed to risk-off sentiment."]
+];
+document.getElementById('drivers').innerHTML=(up?upDrivers:downDrivers).map(d=>`
+  <li><span class="ico">${d[0]}</span><span><b>${d[1]}.</b> ${d[2]}</span></li>`).join('');
+</script>
+</body>
+</html>

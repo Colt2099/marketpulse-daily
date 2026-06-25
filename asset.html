@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asset News — MarketPulse Daily</title>
+<style>
+  :root{--bg:#0b1220;--panel:#121b2e;--panel2:#16223a;--line:#243150;--txt:#e8eef9;--muted:#93a1bd;--up:#2ecc71;--down:#ff5d6c;--accent:#4f8cff;--accent2:#9b6bff}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5}
+  a{color:var(--accent);text-decoration:none}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 18px}
+  header{border-bottom:1px solid var(--line);background:linear-gradient(180deg,#0e1830,#0b1220)}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px}
+  .dot{width:12px;height:12px;border-radius:50%;background:var(--up);box-shadow:0 0 12px var(--up)}
+  .grid{display:grid;grid-template-columns:1fr 300px;gap:24px;padding:24px 0}
+  @media(max-width:900px){.grid{grid-template-columns:1fr}}
+  .back{color:var(--muted);font-size:14px;display:inline-block;margin-bottom:14px}
+  .assethead{background:linear-gradient(135deg,#16223a,#101a30);border:1px solid var(--line);border-radius:16px;padding:22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+  .assethead .t{font-size:30px;font-weight:800}
+  .assethead .co{color:var(--muted);margin-top:2px}
+  .assethead .price{font-size:26px;font-weight:800;text-align:right}
+  .pos{color:var(--up)} .neg{color:var(--down)}
+  h2.sec{font-size:18px;margin:24px 0 12px;display:flex;align-items:center;gap:8px}
+  h2.sec::before{content:"";width:4px;height:18px;background:linear-gradient(var(--accent),var(--accent2));border-radius:3px}
+  .newscard{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .ni{display:block;padding:16px;border-bottom:1px solid #1b2740}
+  .ni:last-child{border-bottom:none} .ni:hover{background:#1a2540}
+  .ni h3{margin:0 0 5px;font-size:16px;color:var(--txt)}
+  .ni p{margin:0 0 6px;color:#cdd8ee;font-size:14px}
+  .ni .meta{color:var(--muted);font-size:12px}
+  .newsfooter{margin-top:12px;padding:12px 14px;border-left:3px solid var(--accent);
+    background:rgba(79,140,255,.07);border-radius:0 8px 8px 0;font-size:12.5px;color:#b8c4dc;font-style:italic}
+  .newsfooter b{color:#d6e0f2;font-style:normal}
+  aside{display:flex;flex-direction:column;gap:18px}
+  .ad{position:sticky;top:18px}
+  .adbox{background:repeating-linear-gradient(45deg,#10192e,#10192e 10px,#121d34 10px,#121d34 20px);border:1px dashed var(--line);border-radius:14px;height:600px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;text-align:center}
+  .adlabel{font-size:10px;color:#6b7794;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+  footer{border-top:1px solid var(--line);margin-top:30px;padding:22px 0;color:var(--muted);font-size:13px}
+  .disc{background:#0e1830;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:12px;color:var(--muted)}
+  .demo{background:#3a2a12;color:#ffcf8a;border:1px solid #6b4d1f;font-size:12px;text-align:center;padding:7px}
+</style>
+</head>
+<body>
+<div class="demo">PROTÓTIPO — 5 últimas notícias do ativo (exemplo). Cada notícia é resumo próprio + link para a fonte.</div>
+<header>
+  <div class="wrap nav">
+    <div class="brand"><span class="dot"></span> MarketPulse <span style="color:var(--muted);font-weight:600">Daily</span></div>
+    <span style="font-size:12px;color:var(--muted);border:1px solid var(--line);padding:5px 10px;border-radius:20px">🌐 EN · auto</span>
+  </div>
+</header>
+
+<div class="wrap grid">
+  <main>
+    <a class="back" href="index.html">← Back to movers</a>
+    <div class="assethead">
+      <div><div class="t" id="tick">—</div><div class="co" id="co">—</div></div>
+      <div><div class="price" id="chg">—</div><div style="color:var(--muted);font-size:13px;text-align:right">Last close</div></div>
+    </div>
+
+    <h2 class="sec">Latest 5 News</h2>
+    <div class="newscard" id="newslist"></div>
+    <div class="newsfooter"><b>Notice:</b> This content is for informational purposes only. Nothing on this site is a recommendation to buy or sell any asset. If you have questions, please seek advice from a qualified professional.</div>
+  </main>
+  <aside>
+    <div class="ad"><div class="adlabel">Advertisement</div><div class="adbox">Ad slot (300×600)<br>sticky · non-intrusive</div></div>
+  </aside>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="disc"><strong>Disclaimer:</strong> Informational and educational content only. Not investment advice. News items are original summaries linking to the original source.</div>
+  </div>
+</footer>
+
+<script>
+const q=new URLSearchParams(location.search);
+const t=q.get('t')||'NVDA', n=q.get('n')||'NVIDIA', c=q.get('c')||'+0.0%';
+document.getElementById('tick').textContent=t;
+document.getElementById('co').textContent=n;
+const chg=document.getElementById('chg');
+chg.textContent=c; chg.className='price '+(c.startsWith('-')?'neg':'pos');
+
+// sample 5 news (in production: pulled automatically per ticker, summarized, with source link)
+const news=[
+  {h:`${n} extends gains as sector momentum builds`,p:`Shares of ${t} moved sharply today amid broad sector strength. Our summary highlights the key drivers and what analysts flagged after the close.`,s:"Reuters",d:"2h ago"},
+  {h:`What's behind today's move in ${t}`,p:`A concise, plain-language recap of the catalysts: volume, flows and the macro backdrop that pushed the stock.`,s:"Bloomberg",d:"4h ago"},
+  {h:`${n} in focus ahead of upcoming earnings`,p:`Context on valuation (P/E, EBITDA) and what the market is positioning for. Original summary, full story at source.`,s:"CNBC",d:"6h ago"},
+  {h:`Analysts weigh in on ${t} after the session`,p:`A roundup of sell-side reactions, distilled into the points that matter for a quick read.`,s:"MarketWatch",d:"8h ago"},
+  {h:`${n}: the technical and fundamental picture`,p:`Where liquidity and volume sit versus the 30-day average, summarized for fast scanning.`,s:"Yahoo Finance",d:"10h ago"}
+];
+document.getElementById('newslist').innerHTML=news.map((x,i)=>`
+  <a class="ni" href="article.html?t=${encodeURIComponent(t)}&n=${encodeURIComponent(n)}&id=${i}">
+    <h3>${x.h}</h3><p>${x.p}</p>
+    <div class="meta">📰 ${x.s} · ${x.d} · summary → read full story</div>
+  </a>`).join('');
+</script>
+</body>
+</html>

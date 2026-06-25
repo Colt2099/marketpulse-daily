@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Metric Explained — MarketPulse Daily</title>
+<style>
+  :root{--bg:#0b1220;--panel:#121b2e;--panel2:#16223a;--line:#243150;--txt:#e8eef9;--muted:#93a1bd;--up:#2ecc71;--down:#ff5d6c;--accent:#4f8cff;--accent2:#9b6bff}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.7}
+  a{color:var(--accent);text-decoration:none}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 18px}
+  header{border-bottom:1px solid var(--line);background:linear-gradient(180deg,#0e1830,#0b1220)}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px}
+  .dot{width:12px;height:12px;border-radius:50%;background:var(--up);box-shadow:0 0 12px var(--up)}
+  .grid{display:grid;grid-template-columns:1fr 300px;gap:24px;padding:24px 0}
+  @media(max-width:900px){.grid{grid-template-columns:1fr}}
+  .back{color:var(--muted);font-size:14px;display:inline-block;margin-bottom:14px}
+  .hd{background:linear-gradient(135deg,#16223a,#101a30);border:1px solid var(--line);border-radius:16px;padding:22px}
+  .hd .abbr{font-size:13px;color:var(--accent);font-weight:700;letter-spacing:1px;text-transform:uppercase}
+  .hd h1{margin:4px 0 0;font-size:28px}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;margin-top:18px}
+  .panel h2{font-size:17px;margin:0 0 8px} .panel p{color:#dbe3f2}
+  .formula{background:#0d1626;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-family:ui-monospace,Menlo,Consolas,monospace;color:#bcd0ff;margin:10px 0}
+  .cmp{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px}
+  .cbox{flex:1;min-width:150px;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center}
+  .cbox .k{font-size:12px;color:var(--muted)} .cbox .n{font-size:26px;font-weight:800;margin-top:4px}
+  .verdict{margin-top:12px;padding:12px 14px;border-left:3px solid var(--accent2);background:rgba(155,107,255,.08);border-radius:0 8px 8px 0;font-size:14px;color:#d8ddf2}
+  .pos{color:var(--up)} .neg{color:var(--down)} .neu{color:#ffd27a}
+  aside{display:flex;flex-direction:column;gap:18px}
+  .ad{position:sticky;top:18px}
+  .adbox{background:repeating-linear-gradient(45deg,#10192e,#10192e 10px,#121d34 10px,#121d34 20px);border:1px dashed var(--line);border-radius:14px;height:600px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;text-align:center}
+  .adlabel{font-size:10px;color:#6b7794;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+  .demo{background:#3a2a12;color:#ffcf8a;border:1px solid #6b4d1f;font-size:12px;text-align:center;padding:7px}
+  .related{font-size:14px;margin-top:6px}
+</style>
+</head>
+<body>
+<div class="demo">PROTÓTIPO — explicação do indicador + comparação com a média do índice (dados de exemplo).</div>
+<header>
+  <div class="wrap nav">
+    <div class="brand"><span class="dot"></span> MarketPulse <span style="color:var(--muted);font-weight:600">Daily</span></div>
+    <span style="font-size:12px;color:var(--muted);border:1px solid var(--line);padding:5px 10px;border-radius:20px">🌐 EN · auto</span>
+  </div>
+</header>
+
+<div class="wrap grid">
+  <main>
+    <a class="back" id="back" href="#">← Back</a>
+    <div class="hd"><div class="abbr" id="abbr">P/E</div><h1 id="title">Price-to-Earnings Ratio</h1></div>
+
+    <div class="panel">
+      <h2>What it is</h2>
+      <p id="what"></p>
+      <div class="formula" id="formula"></div>
+    </div>
+
+    <div class="panel">
+      <h2>Why it matters</h2>
+      <p id="why"></p>
+    </div>
+
+    <div class="panel" id="cmpPanel">
+      <h2 id="cmpTitle">This stock vs its index</h2>
+      <div class="cmp">
+        <div class="cbox"><div class="k" id="cmpTick">NVDA</div><div class="n" id="cmpA">45.2</div></div>
+        <div class="cbox"><div class="k" id="cmpIdxName">S&P 500 average</div><div class="n" id="cmpB">24.1</div></div>
+      </div>
+      <div class="verdict" id="verdict"></div>
+    </div>
+
+    <div class="panel">
+      <h2>Related metrics</h2>
+      <div class="related" id="related"></div>
+    </div>
+  </main>
+  <aside>
+    <div class="ad"><div class="adlabel">Advertisement</div><div class="adbox">Ad slot (300×600)<br>sticky · non-intrusive</div></div>
+  </aside>
+</div>
+
+<script>
+const M={
+ pe:{abbr:"P/E",title:"Price-to-Earnings Ratio",
+   what:"The P/E ratio compares a company's share price to its earnings per share. It tells you how much investors are paying for each dollar of profit the company generates.",
+   formula:"P/E = Share Price ÷ Earnings per Share (EPS)",
+   why:"It is the most common shorthand for whether a stock looks cheap or expensive. A high P/E means the market expects strong future growth (or the stock is overpriced); a low P/E can mean a bargain (or a struggling business). It only makes sense compared to peers and to the company's own history.",
+   a:45.2,b:24.1,high_is_expensive:true},
+ evebitda:{abbr:"EV/EBITDA",title:"Enterprise Value to EBITDA",
+   what:"EV/EBITDA compares the total value of a company (equity plus debt, minus cash) to its earnings before interest, taxes, depreciation and amortization. It is a capital-structure-neutral way to value a business.",
+   formula:"EV/EBITDA = Enterprise Value ÷ EBITDA",
+   why:"Unlike P/E, it ignores how a company is financed and removes accounting noise from depreciation, so it is better for comparing companies with different debt levels. Lower generally means cheaper.",
+   a:38.0,b:16.5,high_is_expensive:true},
+ roi:{abbr:"ROI",title:"Return on Investment",
+   what:"ROI measures how efficiently a company turns invested capital into profit, expressed as a percentage.",
+   formula:"ROI = Net Profit ÷ Invested Capital × 100",
+   why:"It shows quality of the business, not just its price. A consistently high ROI signals a company that compounds capital well — often worth a premium valuation.",
+   a:32,b:15,suffix:"%",high_is_expensive:false},
+ liquidity:{abbr:"Liquidity",title:"Liquidity",
+   what:"Liquidity describes how easily an asset can be bought or sold without moving its price. It is reflected in trading volume and the bid-ask spread.",
+   formula:"Higher volume + tighter spread = more liquid",
+   why:"High liquidity means you can enter and exit positions cheaply and quickly. Low liquidity raises the risk of slippage and sharp price swings — important for smaller stocks.",
+   a:null,b:null},
+ volume:{abbr:"Volume",title:"Trading Volume",
+   what:"Volume is the number of shares (or contracts) traded over a period. It is often compared to a 30-day average to gauge conviction behind a move.",
+   formula:"Relative Volume = Today's Volume ÷ 30-day Average Volume",
+   why:"A price move on high volume is more reliable than one on thin volume. Volume spikes often mark the start — or exhaustion — of a trend.",
+   a:null,b:null}
+};
+const idxNames={sp500:"S&P 500",nasdaq:"Nasdaq",russell:"Russell 2000",smallcaps:"Small-Cap",microcaps:"Micro-Cap"};
+
+const q=new URLSearchParams(location.search);
+const key=(q.get('m')||'pe').toLowerCase().replace('p/l','pe').replace('p/e','pe');
+const m=M[key]||M.pe;
+const tick=q.get('t')||'NVDA';
+const idx=q.get('idx')||'sp500';
+document.getElementById('back').href=q.get('from')||'index.html';
+
+document.getElementById('abbr').textContent=m.abbr;
+document.getElementById('title').textContent=m.title;
+document.getElementById('what').textContent=m.what;
+document.getElementById('formula').textContent=m.formula;
+document.getElementById('why').textContent=m.why;
+
+const cmpPanel=document.getElementById('cmpPanel');
+if(m.a===null){
+  cmpPanel.style.display='none';
+}else{
+  const sfx=m.suffix||'';
+  document.getElementById('cmpTick').textContent=tick;
+  document.getElementById('cmpA').textContent=m.a+sfx;
+  document.getElementById('cmpIdxName').textContent=(idxNames[idx]||'Index')+' average';
+  document.getElementById('cmpB').textContent=m.b+sfx;
+  const above=m.a>m.b;
+  let txt;
+  if(m.high_is_expensive){
+    txt = above
+      ? `${tick} trades at a premium to the ${idxNames[idx]||'index'} average on this metric — the market is paying up, likely for higher expected growth. Worth asking whether the growth justifies it.`
+      : `${tick} sits below the ${idxNames[idx]||'index'} average here — relatively cheaper than peers, which can be opportunity or a warning sign.`;
+  }else{
+    txt = above
+      ? `${tick} is above the ${idxNames[idx]||'index'} average — a sign of above-average business quality on this measure.`
+      : `${tick} is below the ${idxNames[idx]||'index'} average on this measure, suggesting weaker efficiency than peers.`;
+  }
+  document.getElementById('verdict').textContent=txt;
+}
+
+const order=['pe','evebitda','roi','liquidity','volume'];
+document.getElementById('related').innerHTML=order.filter(k=>k!==key)
+  .map(k=>`<a href="metric.html?m=${k}&t=${encodeURIComponent(tick)}&idx=${idx}">${M[k].abbr} — ${M[k].title}</a>`).join(' · ');
+</script>
+</body>
+</html>
