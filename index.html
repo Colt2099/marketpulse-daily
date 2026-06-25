@@ -5,14 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MarketPulse Daily — US Market Close, Explained</title>
 <style>
-  :root{
-    --bg:#0b1220; --panel:#121b2e; --panel2:#16223a; --line:#243150;
-    --txt:#e8eef9; --muted:#93a1bd; --up:#2ecc71; --down:#ff5d6c;
-    --accent:#4f8cff; --accent2:#9b6bff; --chip:#1c2942;
-  }
+  :root{--bg:#0b1220;--panel:#121b2e;--panel2:#16223a;--line:#243150;--txt:#e8eef9;--muted:#93a1bd;--up:#2ecc71;--down:#ff5d6c;--accent:#4f8cff;--accent2:#9b6bff;--chip:#1c2942}
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--txt);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5}
+  body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5}
   a{color:var(--accent);text-decoration:none}
   .wrap{max-width:1200px;margin:0 auto;padding:0 18px}
   header{border-bottom:1px solid var(--line);background:linear-gradient(180deg,#0e1830,#0b1220)}
@@ -31,12 +26,14 @@
   .tiles{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:18px}
   @media(max-width:760px){.tiles{grid-template-columns:repeat(3,1fr)}}
   @media(max-width:460px){.tiles{grid-template-columns:repeat(2,1fr)}}
-  a.tile{display:block;background:var(--panel2);border:1px solid var(--line);border-radius:11px;padding:10px;position:relative;transition:.15s;color:var(--txt)}
+  .tile{display:block;background:var(--panel2);border:1px solid var(--line);border-radius:11px;padding:10px;position:relative;transition:.15s;color:var(--txt)}
   a.tile:hover{border-color:var(--accent);background:#1a2540;transform:translateY(-2px)}
   a.tile::after{content:"📊 Why? →";position:absolute;top:8px;right:9px;font-size:9px;color:var(--accent);opacity:0;transition:.15s}
   a.tile:hover::after{opacity:1}
+  .tile.pending{opacity:.55}
   .tile .name{font-size:12px;color:var(--muted)} .tile .val{font-size:16px;font-weight:700;margin-top:2px}
   .pos{color:var(--up)} .neg{color:var(--down)} .chg{font-size:12px;font-weight:600}
+  .chg.soon{color:var(--muted);font-weight:500;font-style:italic}
   h2.sec{font-size:18px;margin:24px 0 12px;display:flex;align-items:center;gap:8px}
   h2.sec::before{content:"";width:4px;height:18px;background:linear-gradient(var(--accent),var(--accent2));border-radius:3px}
   .cat{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:18px}
@@ -49,22 +46,18 @@
   .col.lose{border-left:1px solid var(--line)}
   @media(max-width:620px){.col.lose{border-left:none;border-top:1px solid var(--line)}}
   .row{position:relative;display:flex;justify-content:space-between;align-items:center;padding:8px 16px;border-bottom:1px solid #1b2740;cursor:pointer;transition:background .15s}
-  .row:last-child{border-bottom:none}
-  .row:hover{background:#1a2540}
+  .row:last-child{border-bottom:none} .row:hover{background:#1a2540}
   .tick{font-weight:700;font-size:14px} .co{color:var(--muted);font-size:11px}
   .pct{font-weight:700;font-size:14px}
-  /* hover tooltip */
-  .hint{position:absolute;right:14px;top:50%;transform:translateY(-50%) translateX(8px);
-    background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff;font-size:11px;font-weight:700;
-    padding:4px 10px;border-radius:20px;opacity:0;pointer-events:none;transition:.18s;white-space:nowrap;box-shadow:0 4px 14px rgba(79,140,255,.4)}
+  .hint{position:absolute;right:14px;top:50%;transform:translateY(-50%) translateX(8px);background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;opacity:0;pointer-events:none;transition:.18s;white-space:nowrap;box-shadow:0 4px 14px rgba(79,140,255,.4)}
   .row:hover .hint{opacity:1;transform:translateY(-50%) translateX(0)}
   .row:hover .pct{opacity:.25}
+  .pendingbox{padding:16px;color:var(--muted);font-size:13px;font-style:italic}
   .macro{display:flex;gap:12px;flex-wrap:wrap}
   .mchip{background:var(--chip);border:1px solid var(--line);border-radius:12px;padding:12px 14px;min-width:140px;flex:1}
   .mchip .k{font-size:12px;color:var(--muted)} .mchip .v{font-size:18px;font-weight:700;margin-top:3px}
   .panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
   .panel p{color:#d4ddef}
-  /* fear & greed gauge */
   .fg{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
   .fg .num{font-size:46px;font-weight:800;line-height:1}
   .fg .lab{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1px}
@@ -76,8 +69,7 @@
   .news a:last-child{border-bottom:none} .news .src{color:var(--muted);font-size:12px}
   aside{display:flex;flex-direction:column;gap:18px}
   .ad{position:sticky;top:18px}
-  .adbox{background:repeating-linear-gradient(45deg,#10192e,#10192e 10px,#121d34 10px,#121d34 20px);
-    border:1px dashed var(--line);border-radius:14px;height:250px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;text-align:center}
+  .adbox{background:repeating-linear-gradient(45deg,#10192e,#10192e 10px,#121d34 10px,#121d34 20px);border:1px dashed var(--line);border-radius:14px;height:250px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;text-align:center}
   .adbox.tall{height:600px}
   .adlabel{font-size:10px;color:#6b7794;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
   .nl{background:linear-gradient(135deg,#1d2b4d,#162038);border:1px solid var(--line);border-radius:14px;padding:16px}
@@ -85,18 +77,13 @@
   .nl button{width:100%;padding:10px;border:none;border-radius:8px;background:linear-gradient(90deg,var(--accent),var(--accent2));color:#fff;font-weight:700;cursor:pointer}
   footer{border-top:1px solid var(--line);margin-top:30px;padding:22px 0;color:var(--muted);font-size:13px}
   .disc{background:#0e1830;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:12px;color:var(--muted);margin-bottom:14px}
-  .demo{background:#3a2a12;color:#ffcf8a;border:1px solid #6b4d1f;font-size:12px;text-align:center;padding:7px}
 </style>
 </head>
 <body>
-<div class="demo">PROTÓTIPO — dados de exemplo (não reais). Passe o mouse num ativo e clique para ver a página de notícias dele.</div>
-
 <header>
   <div class="wrap nav">
     <div class="brand"><span class="dot"></span> MarketPulse <span style="color:var(--muted);font-weight:600">Daily</span></div>
-    <nav class="menu">
-      <a href="#">Home</a><a href="#cats">Movers</a><a href="#macro">Macro</a><a href="#analysis">Analysis</a><a href="#news">News</a>
-    </nav>
+    <nav class="menu"><a href="#">Home</a><a href="#cats">Movers</a><a href="#macro">Macro</a><a href="#analysis">Analysis</a><a href="#news">News</a></nav>
     <span class="lang">🌐 EN · auto</span>
   </div>
 </header>
@@ -104,50 +91,26 @@
 <div class="wrap grid">
   <main>
     <section class="hero">
-      <div class="date">Market Close · Wednesday, June 24, 2026</div>
-      <h1>Stocks close higher as cooling inflation lifts risk appetite</h1>
-      <p>Softer inflation revived rate-cut bets. Tech and small caps led; energy and metals lagged.</p>
+      <div class="date" id="date">—</div>
+      <h1 id="headline">—</h1>
+      <p id="summary">—</p>
       <div class="tiles" id="tiles"></div>
     </section>
 
-    <h2 class="sec" id="cats">Today's Movers — by Category</h2>
+    <h2 class="sec" id="cats">Today's Movers</h2>
     <div id="categories"></div>
 
     <h2 class="sec" id="macro">US Macro Today</h2>
-    <div class="macro">
-      <div class="mchip"><div class="k">CPI (YoY)</div><div class="v pos">2.9%</div></div>
-      <div class="mchip"><div class="k">Fed Funds Rate</div><div class="v">4.50%</div></div>
-      <div class="mchip"><div class="k">10Y Treasury</div><div class="v">4.21%</div></div>
-      <div class="mchip"><div class="k">Unemployment</div><div class="v">4.1%</div></div>
-    </div>
+    <div class="macro" id="macroRow"></div>
 
     <h2 class="sec" id="sentiment">Market Sentiment — Fear &amp; Greed</h2>
-    <div class="panel">
-      <div class="fg">
-        <div style="text-align:center">
-          <div class="num pos">62</div>
-          <div class="lab pos">Greed</div>
-        </div>
-        <div class="meter">
-          <div class="bar"><div class="ptr" style="left:62%"></div></div>
-          <div class="scale"><span>Extreme Fear</span><span>Fear</span><span>Neutral</span><span>Greed</span><span>Extreme Greed</span></div>
-          <p style="font-size:13px;color:var(--muted);margin:10px 0 0">Investors are leaning greedy today (62/100), up from 55 yesterday — consistent with the risk-on move after the soft CPI print. Useful as a contrarian gauge: extreme readings often precede reversals.</p>
-        </div>
-      </div>
-    </div>
+    <div class="panel"><div class="fg" id="fg"></div></div>
 
     <h2 class="sec" id="analysis">Analysis of the Day</h2>
-    <div class="panel">
-      <p>The softer CPI print did most of the heavy lifting today. With inflation easing to 2.9%, markets priced higher odds of a rate cut, flowing into the most rate-sensitive corners — semis, software and small caps.</p>
-      <p>Caution on the leaders: several of today's biggest gainers still trade at rich forward P/E levels, so the move is sentiment-driven more than earnings-driven. Metals and energy pulled back as the dollar firmed.</p>
-    </div>
+    <div class="panel" id="analysis-body"></div>
 
     <h2 class="sec" id="news">Today's News, Summarized</h2>
-    <div class="panel news">
-      <a href="#"><strong>Inflation cools to 2.9%, fueling rate-cut hopes</strong><div class="src">Summary · source: Reuters →</div></a>
-      <a href="#"><strong>Small caps outperform as yields fall</strong><div class="src">Summary · source: Bloomberg →</div></a>
-      <a href="#"><strong>Gold slips as dollar firms after CPI</strong><div class="src">Summary · source: CNBC →</div></a>
-    </div>
+    <div class="panel news" id="news-list"></div>
   </main>
 
   <aside>
@@ -168,39 +131,22 @@
   </div>
 </footer>
 
+<script src="data.js"></script>
 <script>
-// ---- Hero tiles (one per category) ----
-const tiles=[
-  ["S&P 500","5,488.21","+0.84%",1,"sp500"],["Nasdaq","17,940.55","+1.12%",1,"nasdaq"],
-  ["Russell 2000","2,038.74","+0.95%",1,"russell"],["Small Caps","1,204.10","+1.30%",1,"smallcaps"],
-  ["Micro Caps","612.45","+0.70%",1,"microcaps"],["Commodities","248.6","-0.55%",0,"commodities"]
-];
-document.getElementById('tiles').innerHTML=tiles.map(t=>`
-  <a class="tile" href="idx.html?i=${t[4]}&n=${encodeURIComponent(t[0])}&v=${encodeURIComponent(t[1])}&c=${encodeURIComponent(t[2])}">
-  <div class="name">${t[0]}</div><div class="val">${t[1]}</div>
-  <div class="chg ${t[3]?'pos':'neg'}">${t[3]?'▲':'▼'} ${t[2]}</div></a>`).join('');
+const D=window.SITE_DATA||{};
+document.getElementById('date').textContent=D.dateLabel||'';
+document.getElementById('headline').textContent=D.headline||'';
+document.getElementById('summary').textContent=D.summary||'';
 
-// ---- 6 categories, each with 6 gainers + 6 losers ----
-const cats=[
-  {name:"S&P 500", tag:"Large Cap",
-   gain:[["NVDA","NVIDIA","+6.4%"],["AMD","Adv. Micro Devices","+5.1%"],["AVGO","Broadcom","+4.6%"],["CRM","Salesforce","+4.0%"],["AAPL","Apple","+3.2%"],["MSFT","Microsoft","+2.8%"]],
-   lose:[["XOM","Exxon Mobil","-3.1%"],["CVX","Chevron","-2.7%"],["OXY","Occidental","-2.4%"],["SLB","Schlumberger","-2.0%"],["PG","Procter & Gamble","-1.6%"],["KO","Coca-Cola","-1.3%"]]},
-  {name:"Nasdaq", tag:"Tech",
-   gain:[["SMCI","Super Micro","+8.2%"],["PLTR","Palantir","+5.9%"],["MU","Micron","+4.7%"],["ARM","Arm Holdings","+4.3%"],["MRVL","Marvell","+3.8%"],["ADBE","Adobe","+3.1%"]],
-   lose:[["PYPL","PayPal","-3.6%"],["INTC","Intel","-2.9%"],["CSCO","Cisco","-2.2%"],["TMUS","T-Mobile","-1.9%"],["GILD","Gilead","-1.5%"],["KHC","Kraft Heinz","-1.2%"]]},
-  {name:"Russell 2000", tag:"Small-Cap Index",
-   gain:[["IONQ","IonQ","+9.1%"],["RKLB","Rocket Lab","+7.4%"],["FUBO","FuboTV","+6.2%"],["SOFI","SoFi","+5.5%"],["RIOT","Riot Platforms","+4.9%"],["CVNA","Carvana","+4.1%"]],
-   lose:[["BIG","Big Lots","-5.8%"],["WOLF","Wolfspeed","-4.7%"],["AMC","AMC Ent.","-3.9%"],["GME","GameStop","-3.3%"],["BBWI","Bath & Body","-2.6%"],["LUMN","Lumen","-2.1%"]]},
-  {name:"Small Caps", tag:"Broad Small-Cap",
-   gain:[["CELH","Celsius","+7.8%"],["DKNG","DraftKings","+6.0%"],["AFRM","Affirm","+5.3%"],["U","Unity","+4.6%"],["CHWY","Chewy","+4.0%"],["PTON","Peloton","+3.5%"]],
-   lose:[["WBA","Walgreens","-4.4%"],["NCLH","Norwegian Cruise","-3.7%"],["RIVN","Rivian","-3.0%"],["LCID","Lucid","-2.8%"],["PARA","Paramount","-2.3%"],["HOOD","Robinhood","-1.7%"]]},
-  {name:"Micro Caps", tag:"Micro-Cap",
-   gain:[["BBAI","BigBear.ai","+12.3%"],["GEVO","Gevo","+9.6%"],["MARA","Marathon","+8.1%"],["ATER","Aterian","+7.0%"],["CLOV","Clover Health","+6.4%"],["SNDL","SNDL Inc.","+5.2%"]],
-   lose:[["MULN","Mullen Auto","-9.2%"],["NKLA","Nikola","-7.5%"],["GROM","Grom Holdings","-6.1%"],["FFIE","Faraday Future","-5.4%"],["CENN","Cenntro","-4.3%"],["XELA","Exela","-3.6%"]]},
-  {name:"Commodities", tag:"CME · Chicago · Metals",
-   gain:[["NG","Natural Gas","+3.2%"],["W","Wheat (CBOT)","+2.4%"],["C","Corn (CBOT)","+1.8%"],["ZS","Soybeans (CBOT)","+1.5%"],["PA","Palladium","+1.1%"],["CC","Cocoa","+0.9%"]],
-   lose:[["GC","Gold","-1.4%"],["SI","Silver","-1.9%"],["HG","Copper","-2.2%"],["CL","Crude Oil (WTI)","-2.6%"],["PL","Platinum","-1.2%"],["AL","Aluminum","-0.8%"]]}
-];
+document.getElementById('tiles').innerHTML=(D.indices||[]).map(t=>{
+  const chgCls = t.ready ? (t.up?'pos':'neg') : 'soon';
+  const arrow = t.ready ? (t.up?'▲ ':'▼ ') : '';
+  const inner=`<div class="name">${t.name}</div><div class="val">${t.value}</div>
+    <div class="chg ${chgCls}">${arrow}${t.chg}</div>`;
+  return t.ready
+    ? `<a class="tile" href="idx.html?i=${t.slug}&n=${encodeURIComponent(t.name)}&v=${encodeURIComponent(t.value)}&c=${encodeURIComponent(t.chg)}">${inner}</a>`
+    : `<div class="tile pending">${inner}</div>`;
+}).join('');
 
 function rows(list){
   return list.map(r=>`
@@ -210,14 +156,35 @@ function rows(list){
       <span class="hint">📰 Learn more →</span>
     </a>`).join('');
 }
-document.getElementById('categories').innerHTML=cats.map(c=>`
-  <div class="cat">
+document.getElementById('categories').innerHTML=(D.categories||[]).map(c=>{
+  const body = c.ready
+    ? `<div class="cols">
+         <div class="col gain"><h4>▲ Top Gainers</h4>${rows(c.gain)}</div>
+         <div class="col lose"><h4>▼ Top Losers</h4>${rows(c.lose)}</div>
+       </div>`
+    : `<div class="pendingbox">Per-category data source being configured — coming soon.</div>`;
+  return `<div class="cat">
     <div class="cat-head"><span>${c.name}</span><span class="tag">${c.tag}</span></div>
-    <div class="cols">
-      <div class="col gain"><h4>▲ Top 6 Gainers</h4>${rows(c.gain)}</div>
-      <div class="col lose"><h4>▼ Top 6 Losers</h4>${rows(c.lose)}</div>
-    </div>
-  </div>`).join('');
+    ${body}</div>`;
+}).join('');
+
+document.getElementById('macroRow').innerHTML=(D.macro||[]).map(m=>`
+  <div class="mchip"><div class="k">${m.k}</div><div class="v ${m.tone||''}">${m.v}</div></div>`).join('');
+
+const fg=D.fearGreed||{value:50,label:'Neutral',note:''};
+const fgCls = fg.value>=55?'pos':(fg.value<=45?'neg':'');
+document.getElementById('fg').innerHTML=`
+  <div style="text-align:center"><div class="num ${fgCls}">${fg.value}</div><div class="lab ${fgCls}">${fg.label}</div></div>
+  <div class="meter">
+    <div class="bar"><div class="ptr" style="left:${fg.value}%"></div></div>
+    <div class="scale"><span>Extreme Fear</span><span>Fear</span><span>Neutral</span><span>Greed</span><span>Extreme Greed</span></div>
+    <p style="font-size:13px;color:var(--muted);margin:10px 0 0">${fg.note||''}</p>
+  </div>`;
+
+document.getElementById('analysis-body').innerHTML=(D.analysis||[]).map(p=>`<p>${p}</p>`).join('');
+document.getElementById('news-list').innerHTML=(D.news||[]).map(x=>`
+  <a href="#"><strong>${x.h}</strong><div class="src">Summary · source: ${x.src} →</div></a>`).join('');
 </script>
 </body>
 </html>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
