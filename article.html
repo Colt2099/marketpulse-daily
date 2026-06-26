@@ -103,10 +103,14 @@ const id=parseInt(q.get('id')||'0',10);
 const idx=q.get('idx')||'sp500';
 document.getElementById('back').href=`asset.html?t=${encodeURIComponent(t)}&n=${encodeURIComponent(n)}`;
 
-// which tickers are commodities
+// which tickers are commodities (accept both bare codes like "SI" and
+// data-feed symbols carrying a USD suffix like "SIUSD"/"GCUSD")
 const COMMOD={GC:"Gold",SI:"Silver",HG:"Copper",CL:"Crude Oil",PL:"Platinum",AL:"Aluminum",
-  NG:"Natural Gas",W:"Wheat",C:"Corn",ZS:"Soybeans",PA:"Palladium",CC:"Cocoa"};
-const isCommod = Object.prototype.hasOwnProperty.call(COMMOD,t);
+  NG:"Natural Gas",W:"Wheat",C:"Corn",ZW:"Wheat",ZC:"Corn",ZS:"Soybeans",PA:"Palladium",CC:"Cocoa"};
+let commodKey=null;
+if(Object.prototype.hasOwnProperty.call(COMMOD,t)) commodKey=t;
+else if(t.length>3 && t.slice(-3)==="USD" && Object.prototype.hasOwnProperty.call(COMMOD,t.slice(0,-3))) commodKey=t.slice(0,-3);
+const isCommod = commodKey!==null;
 
 const titles=[
   `${n} extends gains as momentum builds`,
@@ -152,11 +156,11 @@ if(isCommod){
 
   // seeded RNG for stable, realistic-looking candles
   function rng(seed){let s=seed>>>0;return()=>{s=(s*1664525+1013904223)>>>0;return s/4294967296;};}
-  const bases={GC:2350,SI:30,HG:4.5,CL:78,PL:980,AL:2.4,NG:2.8,W:6.1,C:4.5,ZS:11.8,PA:1010,CC:7800};
+  const bases={GC:2350,SI:30,HG:4.5,CL:78,PL:980,AL:2.4,NG:2.8,W:6.1,C:4.5,ZW:6.1,ZC:4.5,ZS:11.8,PA:1010,CC:7800};
   function genOHLC(tf){
     const r=rng((t.charCodeAt(0)*97 + tf.charCodeAt(0)) || 7);
     const vol={D:0.012,W:0.03,M:0.06}[tf];
-    let price=(bases[t]||100);
+    let price=(bases[commodKey]||bases[t]||100);
     const out=[];
     for(let i=0;i<30;i++){
       const o=price;
